@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --font-base: 'JetBrains Mono';
+ 
+
+  --color-1: rgb(81, 13, 10); 
+  --color-2: rgb(245, 187, 0);
+  --color-2-5: rgb(245, 147, 0);
+  --color-3: rgb(245, 239, 237);
+  --color-4: rgb(34, 146, 164);
+  --color-5: rgb(56, 134, 151);
+
+
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+}
