@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { axiosInstance } from '../utils/axiosConfig';
 
 const Menu = ({ cat }) => {
   const [posts, setPosts] = useState([]);
@@ -7,7 +7,7 @@ const Menu = ({ cat }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/posts/?cat=${cat}`);
+        const res = await axiosInstance.get(`/posts/?cat=${cat}`);
         setPosts(res.data);
       } catch (err) {
         console.log(err);

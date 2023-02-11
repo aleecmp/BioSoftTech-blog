@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
-// import { FaUserAlt, FaLock } from 'react-icons/fa';
 
 const Login = () => {
   const [inputs, setInputs] = useState({

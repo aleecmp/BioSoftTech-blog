@@ -6,7 +6,6 @@ import {
 import { Register, Login, Write, Home, Single } from './pages';
 import { Footer, Navbar } from './components';
 import './style.scss';
-// import './App.css';
 
 const Layout = () => {
   return (
