@@ -1,7 +1,17 @@
-// import upload from "../middlewares/multer.js";
+import multer from 'multer';
 
-// export const uploadFile = (req, res) => {
-//   const file = req.file;
-//   upload.single("file");
-//   res.status(200).json(file.filename);
-// };
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "../client/public/upload");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+export const upload = multer({ storage });
+
+export const uploadFile = (req, res) => {
+  const file = req.file;
+  res.status(200).json(file.filename);
+};

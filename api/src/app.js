@@ -1,42 +1,36 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
-import cors from 'cors';
 
 import authRoutes from './routes/auth.js';
 import postsRoutes from './routes/posts.js';
 import userRoutes from './routes/users.js';
-
-import multer from 'multer';
+import uploadRoutes from './routes/upload.js';
 
 const app = express();
 
 // MIDDLEWARES
-app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan('dev'));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  res.header(
+    'Access-Control-Allow-Methods',
+    'GET, POST, OPTIONS, PUT, DELETE'
+  );
+  next();
+});
 
 // ROUTES
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '../client/public/upload');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + file.originalname);
-  },
-});
-
-const upload = multer({ storage });
-
-app.post('/api/upload', upload.single('file'), function (req, res) {
-  const file = req.file;
-  res.status(200).json(file.filename);
-});
-
-// app.use("/api/upload", uploadRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postsRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/upload', uploadRoutes);
 
 export default app;
