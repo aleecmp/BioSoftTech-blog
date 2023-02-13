@@ -5,10 +5,11 @@ import { Menu } from '../components';
 import moment from 'moment';
 import { AuthContext } from '../context/authContext';
 import DOMPurify from 'dompurify';
-import { axiosInstance } from '../utils/axiosConfig';
+import axios from 'axios';
 
 const Single = () => {
   const [post, setPost] = useState({});
+  
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Single = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axiosInstance.get(`/posts/${postId}`);
+        const res = await axios.get(`/posts/${postId}`);
         setPost(res.data);
       } catch (err) {
         console.log(err);
@@ -31,7 +32,7 @@ const Single = () => {
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/posts/${postId}`);
+      await axios.delete(`/posts/${postId}`);
       navigate('/');
     } catch (err) {
       console.log(err);
@@ -59,7 +60,7 @@ const Single = () => {
           </div>
           {currentUser.username === post.username && (
             <div className="edit">
-              <Link to={`/write?edit=2`} state={post}>
+              <Link to="/write?edit=2" state={post}>
                 <img src={images.editImage} alt="" />
               </Link>
               <img
@@ -77,7 +78,7 @@ const Single = () => {
           }}
         ></p>{' '}
       </div>
-      <Menu cat={post.cat} />
+      <Menu cat={post.cat} postId={postId} />
     </div>
   );
 };
