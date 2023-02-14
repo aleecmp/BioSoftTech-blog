@@ -5,7 +5,7 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     let destinationPath;
     if (process.env.NODE_ENV === 'production') {
-      destinationPath = '/var/www/app/public/uploads';
+      destinationPath = '/public/uploads';
     } else {
       destinationPath = path.join(
         process.cwd(),
