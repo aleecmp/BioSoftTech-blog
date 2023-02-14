@@ -1,8 +1,21 @@
 import multer from 'multer';
+import path from 'path';
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "../client/public/upload");
+    let destinationPath;
+    if (process.env.NODE_ENV === 'production') {
+      destinationPath = '/var/www/app/public/uploads';
+    } else {
+      destinationPath = path.join(
+        process.cwd(),
+        '..',
+        'client',
+        'public',
+        'upload'
+      );
+    }
+    cb(null, destinationPath);
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + file.originalname);
